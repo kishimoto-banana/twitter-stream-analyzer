@@ -14,5 +14,6 @@ services:
     volumes:
       - ./adhock:/app/adhock
       - ./data:/app/data
+      - ./output:/app/output
     ports:
       - 10000:10000
