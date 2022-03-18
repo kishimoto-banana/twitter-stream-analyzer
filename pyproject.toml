@@ -6,17 +6,17 @@ authors = ["masashi kishimoto <drehbleistift@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+pymongo = "^4.0.2"
 SudachiPy = "^0.6.3"
 SudachiDict-core = "^20211220"
-pymongo = "^4.0.2"
 python-dateutil = "^2.8.2"
-pygeonlp = "^1.2.0"
 
 [tool.poetry.dev-dependencies]
 jupyter = "^1.0.0"
 jupyterlab = "^3.3.2"
+memory-profiler = "^0.60.0"
+matplotlib = "^3.5.1"
 black = "^22.1.0"
-seaborn = "^0.11.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
