@@ -1,0 +1,18 @@
+version: "3"
+
+networks:
+  default:
+    name: twitter-stream
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: twitter-stream-analyzer
+    tty: true
+    volumes:
+      - ./adhock:/app/adhock
+      - ./data:/app/data
+    ports:
+      - 10000:10000
