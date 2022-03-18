@@ -1,5 +1,6 @@
 import argparse
 import json
+import re
 from datetime import datetime, timedelta
 from typing import List
 
@@ -33,12 +34,16 @@ class SudachiTokenizer:
         self.tokenizer = dictionary.Dictionary().create()
         self.pos_filter = ["名詞"]
         self.mode = sudachi_tokenizer.Tokenizer.SplitMode.C
+        self.url_pattern = re.compile("https?://[\w/:%#\$&\?\(\)~\.=\+\-]+")
 
     def parse(self, text: str) -> List[str]:
+        text_ex_url = self.url_pattern.sub("", text)
         words = [
             m.surface()
-            for m in self.tokenizer.tokenize(text, self.mode)
-            if m.part_of_speech()[0] in self.pos_filter and m.surface()
+            for m in self.tokenizer.tokenize(text_ex_url, self.mode)
+            if m.part_of_speech()[0] in self.pos_filter
+            and m.part_of_speech()[1] != "数詞"
+            and m.surface()
         ]
         return words
 
