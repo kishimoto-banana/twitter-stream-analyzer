@@ -1,4 +1,18 @@
+FROM python:3.9-buster as neologd_builder
+
+RUN apt update \
+    && apt upgrade -y \
+    && apt install -y mecab \
+    libmecab-dev \
+    && apt clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN git clone --depth 1 https://github.com/neologd/mecab-ipadic-neologd.git /tmp/neologd \
+    && cd /tmp/neologd \
+    && yes yes | ./bin/install-mecab-ipadic-neologd -n -u
+
 FROM python:3.9
+COPY --from=neologd_builder /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd /usr/lib/x86_64-linux-gnu/mecab/dic/mecab-ipadic-neologd
 
 WORKDIR /app
 
